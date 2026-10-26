@@ -117,7 +117,13 @@ Do not wrap the map in a frame unless the user asks. If framing, one frame, whit
 </svg>
 ```
 
-Generate coordinates with a small script rather than by hand, so spacing is exact. Build the tree as data, compute slots (section 5), emit the SVG.
+Never compute coordinates by hand. Use the bundled generator, which implements sections 3 to 6:
+
+```bash
+python3 -I .claude/skills/miro-mindmap/scripts/mindmap_svg.py tree.json > map.svg
+```
+
+`tree.json` is `{"title", "root", "branches": [{"label", "children": [...]}]}` (see `examples/podcast.json`). Optional keys: `families` (ordered colour list) and `origin` ([x, y] offset on the board). Node widths adapt to label length per level. Send the SVG verbatim to `canvas_create_from_svg`. Tune the constants at the top of the script rather than editing the SVG.
 
 ## 8. Self-check loop (always run)
 
